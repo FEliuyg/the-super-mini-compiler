@@ -4,7 +4,7 @@ export enum TokenType {
   Number,
 }
 
-export interface TokenItem {
+export interface Token {
   type: TokenType;
   value: string;
 }
@@ -12,7 +12,7 @@ export interface TokenItem {
 export function tokenizer(code: string) {
   let current = 0;
 
-  const result: TokenItem[] = [];
+  const result: Token[] = [];
 
   while (current < code.length) {
     let letter = code[current];
@@ -27,8 +27,8 @@ export function tokenizer(code: string) {
     // 名称
     const wordReg = /[a-z]/i;
     if (wordReg.test(letter)) {
-      let name = letter;
-      current++;
+      let name = '';
+      // /[a-z]/i.test(undefined) return true
       while (current < code.length && wordReg.test(code[current])) {
         name += code[current];
         current++;
@@ -40,9 +40,8 @@ export function tokenizer(code: string) {
     // 数值
     const numberReg = /[0-9]/;
     if (numberReg.test(letter)) {
-      let number = letter;
-      current++;
-      while (current < code.length && numberReg.test(code[current])) {
+      let number = '';
+      while (numberReg.test(code[current])) {
         number += code[current];
         current++;
       }
@@ -51,12 +50,9 @@ export function tokenizer(code: string) {
     }
 
     // 空格
-    const spaceReg = /\s/;
-    if (spaceReg.test(letter)) {
+    const whitespaceReg = /\s/;
+    if (whitespaceReg.test(letter)) {
       current++;
-      while (current < code.length && spaceReg.test(code[current])) {
-        current++;
-      }
       continue;
     }
   }
