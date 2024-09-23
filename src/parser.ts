@@ -1,32 +1,36 @@
 import { Token, TokenTypes } from './tokenizer';
 
-enum NodeTypes {
+export enum NodeTypes {
   Program = 'Program',
   CallExpression = 'CallExpression',
   NumberLiteral = 'NumberLiteral',
   StringLiteral = 'StringLiteral',
 }
 
-interface Node {
+export interface Node {
   type: NodeTypes;
 }
 
-interface RootNode extends Node {
+export interface RootNode extends Node {
+  type: NodeTypes.Program;
   body: ChildNode[];
 }
 
-type ChildNode = NumberNode | CallExpressionNode | StringLiteralNode;
+export type ChildNode = NumberNode | CallExpressionNode | StringLiteralNode;
 
-interface NumberNode extends Node {
+export interface NumberNode extends Node {
+  type: NodeTypes.NumberLiteral;
   value: string;
 }
 
-interface CallExpressionNode extends Node {
+export interface CallExpressionNode extends Node {
+  type: NodeTypes.CallExpression;
   name: string;
   params: ChildNode[];
 }
 
-interface StringLiteralNode extends Node {
+export interface StringLiteralNode extends Node {
+  type: NodeTypes.StringLiteral;
   value: string;
 }
 
