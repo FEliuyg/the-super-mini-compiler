@@ -14,25 +14,27 @@ export interface Node {
 export interface RootNode extends Node {
   type: NodeTypes.Program;
   body: ChildNode[];
-}
-
-export type ChildNode = NumberNode | CallExpressionNode | StringLiteralNode;
-
-export interface NumberNode extends Node {
-  type: NodeTypes.NumberLiteral;
-  value: string;
+  context?: ChildNode[];
 }
 
 export interface CallExpressionNode extends Node {
   type: NodeTypes.CallExpression;
   name: string;
   params: ChildNode[];
+  context?: ChildNode[];
+}
+
+export interface NumberNode extends Node {
+  type: NodeTypes.NumberLiteral;
+  value: string;
 }
 
 export interface StringLiteralNode extends Node {
   type: NodeTypes.StringLiteral;
   value: string;
 }
+
+export type ChildNode = NumberNode | CallExpressionNode | StringLiteralNode;
 
 function createRootNode(): RootNode {
   return {

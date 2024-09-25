@@ -1,7 +1,7 @@
-import { NodeTypes, RootNode, ChildNode } from './parser';
+import { NodeTypes, RootNode, ChildNode, CallExpressionNode } from './parser';
 
 interface VisitorOptionFunc {
-  (node: RootNode | ChildNode, parent: RootNode | ChildNode | null): void;
+  (node: RootNode | ChildNode, parent: RootNode | CallExpressionNode | null): void;
 }
 
 interface VisitorOption {
@@ -17,13 +17,13 @@ interface Visitor {
 }
 
 export function traverser(ast: RootNode, visitor: Visitor) {
-  function traverseArray(array: ChildNode[], parent: RootNode | ChildNode) {
+  function traverseArray(array: ChildNode[], parent: RootNode | CallExpressionNode) {
     array.forEach((child) => {
       traverseNode(child, parent);
     });
   }
 
-  function traverseNode(node: RootNode | ChildNode, parent: RootNode | ChildNode | null) {
+  function traverseNode(node: RootNode | ChildNode, parent: RootNode | CallExpressionNode | null) {
     const methods = visitor[node.type];
 
     if (methods && methods.enter) {
