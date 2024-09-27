@@ -5,6 +5,7 @@ export enum NodeTypes {
   CallExpression = 'CallExpression',
   NumberLiteral = 'NumberLiteral',
   StringLiteral = 'StringLiteral',
+  ExpressionStatement = 'ExpressionStatement',
 }
 
 export interface Node {
